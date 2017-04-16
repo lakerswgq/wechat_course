@@ -39,6 +39,7 @@
 						.then(res => {
 							let comments = res.data.response.comments;
 							console.log("comments", comments)
+							comments = comments.reverse();
 							this.comments = comments;
 						})
 						.catch(error => console.log("error:", error))

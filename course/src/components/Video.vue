@@ -69,7 +69,7 @@
 		</div>
 
 		<footer style="margin: 10px;">
-			<VideoGridList title="其他课程推荐" :items="recommendCourse" :itemHeight="200" :cols="2"></VideoGridList>
+			<!-- <VideoGridList title="其他课程推荐" :items="recommendCourse" :itemHeight="200" :cols="2"></VideoGridList> -->
 		</footer>
 		<div>
 			<mu-bottom-sheet :open="docDownload" @close="closeDocDownload">
@@ -102,7 +102,7 @@
 	export default {
 		created (){
 			this.getCourse();
-			this.getRecommendCourse();
+			// this.getRecommendCourse();
 		},
 		mounted (){
 

@@ -1,6 +1,6 @@
 module.exports = function (app) {
-	app.use("/", require("./api"));
-	app.use("/course",require("./course"));
-	app.use("/view", require("./view"));
-	app.use("/admin", require("./admin"));
+	app.use("/api", require("./api"));
+	app.use("/api/course",require("./course"));
+	app.use("/", require("./view"));
+	app.use("/api/admin", require("./admin"));
 }

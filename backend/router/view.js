@@ -6,8 +6,12 @@ var rootDir = {
 	root: path.join(__dirname, '../public')
 } 
 
-router.get("/", function (req, res) {
-	res.sendFile('/admin/index.html', rootDir);
+router.get("/admin/*", function (req, res) {
+	res.sendFile('./admin.html', rootDir);
 })
+router.get("/wechat/*", function (req, res) {
+	res.sendFile("./wechat.html", rootDir);
+})
+
 
 module.exports = router;
