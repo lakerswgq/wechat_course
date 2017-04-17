@@ -1,7 +1,7 @@
 let express = require("express");
 let router = express.Router();
 let UserModel = require("../model/User");
-let courseModel = require("../model/course");
+let courseModel = require("../model/Course");
 let _handle = require("./handle");
 
 router.post("/login", function (req, res) {
