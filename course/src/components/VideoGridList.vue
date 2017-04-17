@@ -33,7 +33,7 @@
             </mu-grid-list>
         </div>
 
-        <p>item grid list</p>
+        <!-- <p>item grid list</p> -->
     </div>
 </template>
 

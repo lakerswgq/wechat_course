@@ -3,10 +3,10 @@
         <h3>用户评论</h3>
         <p v-if="comments.length === 0">暂无评论</p>
         <div class="comment_container">
-        	<div>
+        	<div >
         		<template v-for="(comment, index) in comments ">
-        			<mu-sub-header>{{comment.name}}</mu-sub-header>
-		            <mu-content-block>
+        			<mu-sub-header>{{comment.name+":"}}</mu-sub-header>
+		            <mu-content-block class="comment">
 		                {{comment.content}}
 		            </mu-content-block>		
         		</template>
@@ -55,5 +55,9 @@
 	}
 	.comment_container .mu-sub-header {
 		text-align: left;
+	}
+	.comment {
+		/*margin: 0 20%;*/
+		/*border-bottom: 1px solid black;*/
 	}
 </style>

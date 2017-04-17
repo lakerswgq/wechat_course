@@ -69,7 +69,7 @@
 		</div>
 
 		<footer style="margin: 10px;">
-			<!-- <VideoGridList title="其他课程推荐" :items="recommendCourse" :itemHeight="200" :cols="2"></VideoGridList> -->
+			<VideoGridList title="其他课程推荐" :items="recommendCourse" :itemHeight="200" :cols="2"></VideoGridList>
 		</footer>
 		<div>
 			<mu-bottom-sheet :open="docDownload" @close="closeDocDownload">
@@ -102,7 +102,7 @@
 	export default {
 		created (){
 			this.getCourse();
-			// this.getRecommendCourse();
+			this.getRecommendCourse();
 		},
 		mounted (){
 
@@ -113,9 +113,9 @@
 		},
 		watch: {
 			$route: function (){
-				location.reload();
-				// this.getCourse();
-				// this.getRecommendCourse();
+				//location.reload();
+				this.getCourse();
+				this.getRecommendCourse();
 			}
 		},
 		data (){
@@ -147,8 +147,8 @@
 
 				playerSources: [{
 					type: "video/mp4",
-					src: "ur",
-					label: "name",
+					src: "http://7xkwa7.media1.z0.glb.clouddn.com/sample_video_L",
+					label: "episode",
 					res: 0,
 				}],
 				playerOptions: {
@@ -303,12 +303,16 @@
 					}
 				});
 				this.playerSources = sources;
+				console.log("playerSources:", this.playerSources);
+				this.player.updateSrc(this.playerSources);
 				return;
 				this.$http.get("/video_data")
 					.then(res => {
 						let videos = res.data.videos;
 						console.log("videos:", videos)
 						this.playerSources = videos;
+						console.log("playerSources:", this.playerSources);
+						this.player.updateSrc(this.playerSources)
 					})
 			},
 			playerReadied: function (){

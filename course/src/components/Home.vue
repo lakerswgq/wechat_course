@@ -20,7 +20,7 @@
 			<VideoGridList title="热门推荐" :items="hotCourses" :itemHeight="140"></VideoGridList>
 			<VideoGridList title="最新课程" :items="newCourses" :itemHeight="140"></VideoGridList>
 		</section>
-		<p>home page</p>
+		<!-- <p>home page</p> -->
 
 	</div>
 </template>

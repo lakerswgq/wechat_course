@@ -147,6 +147,9 @@
 	.nickname {
 		color: #fff;
 	}
+	.page_body {
+		margin-bottom: 30px;
+	}
 </style>
 
 <style lang="less">
