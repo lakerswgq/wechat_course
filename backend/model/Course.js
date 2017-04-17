@@ -16,6 +16,22 @@ module.exports = {
 		});
 	},
 
+	getCollectedCourse: function (ids) {
+		return CourseModel.find({
+			_id: {
+				$in: ids
+			}
+		})
+		.select({
+			title: 1,
+			detail: 1,
+			cover: 1,
+			collections: 1,
+			comments: 1,
+			section: 1,
+		});
+	},
+
 	getAllCourses: function () {
 		return CourseModel.find().select({
 			title: 1,
@@ -144,10 +160,10 @@ module.exports = {
 		.exec();
 	},
 
-	collect: function (courseId){
+	collect: function (courseId, number){
 		return CourseModel.update({ _id: courseId }, {
 			$inc: {
-				collections: 1
+				collections: number
 			}
 		});
 	},
@@ -185,6 +201,11 @@ module.exports = {
 		})
 		.limit(number)
 		.exec();
-	}
+	},
+	// modifyCollections: function (courseId, number) {
+	// 	return CourseModel.update({ _id: courseId }, {
+
+	// 	})
+	// }
 
 };

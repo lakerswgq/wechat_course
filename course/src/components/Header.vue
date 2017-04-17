@@ -17,7 +17,7 @@
 				<div id="drawer_header">
 					<mu-list>
 							<!-- <img src="../assets/logo.png" alt=""> -->
-						<mu-list-item title="用户昵称" titleClass="nickname" disabled>
+						<mu-list-item :title="nickname" titleClass="nickname" disabled>
 							<mu-avatar slot="left" :src="avatar"/>
 						</mu-list-item>
 					</mu-list>
@@ -27,8 +27,11 @@
                     <mu-list-item title="主页" @click="JumpToIndex" >
                         <mu-icon  slot="left" value="home" />
                     </mu-list-item>
-                    <mu-list-item title="个人中心">
+                    <mu-list-item title="我的收藏" @click="jumpToProfile">
                         <mu-icon slot="left" value="person" />
+                    </mu-list-item>
+                    <mu-list-item @click="signout" title="登出">
+                        <mu-icon slot="left" value="error_outline" />
                     </mu-list-item>
                     <mu-list-item @click="drawerVisible = false" title="关闭">
                         <mu-icon slot="left" value="close" />
@@ -45,14 +48,21 @@
 </template>
 
 <script>
-	import avatar from "@assets/logo.png"
+	import avatar from "@assets/icon.jpg"
 	import SearchBox from "@components/SearchBox"
+	import Actions from "@http"
+
 	export default {
+		created (){
+			this.getUsername();
+		},
 		components: {
 			SearchBox
 		},
 		data (){
 			return {
+				nickname: "",
+
 				title: "石大微课堂",
 				drawerVisible: false,
 				docked: false,
@@ -62,6 +72,18 @@
 			}
 		},
 		methods: {
+			getUsername: function (argument) {
+				Actions.auth()
+				.then(res => {
+					console.log(res);
+					let code = res.data.code;
+					if (code == 1){
+						let username = res.data.response.username;
+						this.nickname = username;
+					}
+				})
+				.catch(error => console.log(error));
+			},
 			openDrawer (){
 				this.drawerVisible = true;
 			},
@@ -88,6 +110,26 @@
 				else {
 					this.searchVisible = true;
 				}
+			},
+			signout: function () {
+				Actions.signout()
+					.then(res => {
+						let code = res.data.code;
+						if (code == 1){
+							this.$router.push('/login');
+						}
+						else {
+							return Promise.reject(res.data.error);
+						}
+					})
+					.catch(error => {
+						console.log("signout error:", error);
+					})	
+			},
+			jumpToProfile: function () {
+				this.$router.push({
+					name: "Profile"
+				});
 			}
 
 			

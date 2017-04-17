@@ -3,4 +3,5 @@ module.exports = function (app) {
 	app.use("/api/course",require("./course"));
 	app.use("/", require("./view"));
 	app.use("/api/admin", require("./admin"));
+	app.use("/api/user", require("./user"));
 }

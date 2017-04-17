@@ -132,10 +132,11 @@ router.post("/rename_file", function (req, res){
 
 router.post("/comment", function (req, res){
 	let body = req.body,
+	name = req.session.user.username,
 	courseId = body.courseId,
 	comment = body.comment;
 	CourseModel.addComment(courseId, {
-		name: "Julien",
+		name: name || "匿名",
 		content: comment
 	}).then(res => {
 		console.log("post comment:", res);

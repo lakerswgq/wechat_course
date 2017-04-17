@@ -5,6 +5,8 @@ import Hello from '@/components/Hello'
 Vue.use(Router)
 
 export default new Router({
+    mode: "history",
+    base: "/wechat/",
     routes: [{
         path: '/',
         name: 'Header',
@@ -34,7 +36,27 @@ export default new Router({
                 path: "/comments/:id",
                 name: "Comments",
                 component: require("@components/Comments")
-            }
+            },
+            // {
+            //     path: "/login",
+            //     name: "Login",
+            //     component: require("@components/Login")
+            // },
+            // {
+            //     path: "/register",
+            //     name: "Register",
+            //     component: require("@components/Register")
+            // }
         ]
+    },
+    {
+        path: "/login",
+        name: "Login",
+        component: require("@components/Login")
+    },
+    {
+        path: "/register",
+        name: "Register",
+        component: require("@components/Register")
     }]
 })

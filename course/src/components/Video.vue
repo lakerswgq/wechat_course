@@ -59,7 +59,7 @@
 		        </mu-card-text>
 
 		        <mu-card-actions>
-		            <mu-flat-button @click="collect" :disabled="collectDiaabled" label="收藏" :icon="heartIcon" />
+		            <mu-flat-button @click="collect" :disabled="collectDisabled" label="收藏" :icon="heartIcon" />
 		            
 		            <mu-flat-button @click="openCommentDialog" label="评论" icon="create" />
 		            <mu-flat-button @click="openDocDownload" label="课件下载" icon="file_download" />
@@ -131,7 +131,7 @@
 				image: image,
 
 				collected: true,
-				collectDiaabled: false,
+				collectDisabled: true,
 
 				commentDialog: false,
 				commentContent: "",
@@ -183,6 +183,9 @@
 				if (!courseId){
 					return;
 				}
+
+				this.ifCollected();
+
 				Actions.getCourseById(courseId)
 					.then(res => {
 						let course = res.data.response;
@@ -204,12 +207,40 @@
 					.catch(error => console.log("error:", error))
 			},
 			collect: function(){
-				let self = this;
-				this.collectDiaabled = true;
-				setTimeout(function (){
-					self.collected = !self.collected;
-					self.collectDiaabled = false;
-				}, 1000);
+				let self = this,
+					courseId = this.courseId,
+					cancel = this.collected;
+				this.collectDisabled = true;
+				Actions.collect(courseId, cancel)
+					.then(res => {
+						console.log(res);
+						let code = res.data.code;
+						if (code == 1){
+							this.collected = !this.collected;
+						}
+						this.collectDisabled = false;
+					})
+					.catch(error => {
+						console.log(error);
+						this.collectDisabled = false;
+					})
+				
+			},
+
+			ifCollected: function () {
+				let courseId = this.courseId;
+				Actions.ifCollected(courseId)
+					.then(res => {
+						console.log("collect res:", res);
+						let code = res.data.code,
+							collected = res.data.response;
+						if (code == 1){
+							this.collected = collected;
+							this.collectDisabled = false; 
+						}
+
+					})
+					.catch(error => console.log("error:", error))
 			},
 
 			jumpToComment: function (){

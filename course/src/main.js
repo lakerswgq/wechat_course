@@ -12,6 +12,8 @@ Vue.use(MuseUI)
 import axios from "axios"
 Vue.prototype.$http = axios
 
+import Actions from "@http"
+
 // import Mock from "./mock"
 
 Vue.config.productionTip = false
@@ -19,6 +21,37 @@ Vue.config.productionTip = false
 // Mock.mockApi();
 
 /* eslint-disable no-new */
+router.beforeEach((to, from, next) => {
+  //NProgress.start();
+  // if (to.path == '/login') {
+  //   sessionStorage.removeItem('user');
+  //   next()
+  //   return;
+  // }
+
+  Actions.auth()
+  	.then(res => {
+  		let data = res.data;
+      console.log(to.path);
+  		if (data.code == 0 && to.path != '/login'){
+        if (to.path == '/register' ){
+          next();
+        }
+        else {
+          next({ path: '/login' });
+        }
+        
+  		}
+  		else {
+  			next();
+  		}
+  	})
+  	.catch( error => {
+      console.log("error:", error);
+  		next({ path: '/login' });
+  	})
+})
+
 
 
 new Vue({

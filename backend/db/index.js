@@ -36,10 +36,20 @@ let AdminSchema = new mongoose.Schema({
 	collection: "admin"
 });
 
+let UserSchema = new mongoose.Schema({
+	username: String,
+	password: String,
+	collections: Array,
+}, {
+	collection: "users",
+});
+
 let CourseModel = db.model("CourseModel", CourseSchema),
-	AdminModel = db.model("AdminModel", AdminSchema);
+	AdminModel = db.model("AdminModel", AdminSchema)
+	UserModel = db.model("UserModel", UserSchema);
 
 module.exports = {
 	Course: CourseModel,
 	Admin: AdminModel,
+	User: UserModel,
 };

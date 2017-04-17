@@ -1,6 +1,6 @@
 var proxyConfig = {
 	"/api": {
-		target: "http://localhost:3000",
+		target: "http://localhost",
 		changeOrigin: true,
 		pathRewrite: {
 			"^/api": "/api"
