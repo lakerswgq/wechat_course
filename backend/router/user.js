@@ -106,6 +106,7 @@ router.get("/if_collected", function (req, res) {
 				
 			})
 			.catch(error => {
+				console.log("error:", error);
 				_handle.handleError(res, error);
 			})
 	}

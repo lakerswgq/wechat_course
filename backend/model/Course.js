@@ -197,7 +197,7 @@ module.exports = {
 			sections: 1,
 		})
 		.sort({
-			created_at: -1
+			_id: -1
 		})
 		.limit(number)
 		.exec();
