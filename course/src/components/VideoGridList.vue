@@ -12,7 +12,7 @@
                 	@click.native="jumpToVideo(item._id)" 
                 	:key="index">
 
-                    <img :src="item.cover.domain+'/'+item.cover.key" />
+                    <img :src="item.cover.domain+'/'+item.cover.key+'-webp'" />
                     <span slot="title">{{item.title}}</span>
                     <span slot="subTitle">
                     	<mu-flat-button 

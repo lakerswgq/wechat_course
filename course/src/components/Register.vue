@@ -1,6 +1,7 @@
 <template>
     <div style="margin-top: 20px;">
         <mu-text-field hintText="用户名" v-model="username" type="text" icon="account_box" />
+        <br>
         <mu-text-field hintText="密码" v-model="password" type="password" icon="https" />
         <br>
         <mu-text-field hintText="重复密码" v-model="checkPass" type="password" icon="https" />
