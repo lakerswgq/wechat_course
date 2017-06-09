@@ -1,0 +1,17 @@
+#! /usr/bin/node
+
+let createAdmin = require("./Admin").createAdmin,
+    args = process.argv.slice(2),
+    admin = {
+        username: args[0],
+        password: args[1]
+    };
+
+createAdmin(admin)
+    .then((data) => {
+        console.log("create admin successfully");
+        console.log("data:", data);
+    })
+    .catch((error) => {
+        console.log("error:", error);
+    })
