@@ -1,10 +1,10 @@
 <template>
     <section class="chart-container">
         <el-row>
-            <el-col :span="12">
+            <el-col :span="16">
                 <div id="chartColumn" style="width:100%; height:400px;"></div>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="16">
                 <div id="chartBar" style="width:100%; height:400px;"></div>
             </el-col>
             <el-col :span="12">
@@ -22,7 +22,7 @@
 
 <script>
     import echarts from 'echarts'
-
+    import Course from "@http/course"
     export default {
         data() {
             return {
@@ -40,6 +40,102 @@
             this.chartLine = echarts.init(document.getElementById('chartLine'));
             this.chartPie = echarts.init(document.getElementById('chartPie'));
 
+            Course.getHotCourse()
+                .then( (res) => {
+                    let courses = res.data.response;
+                    console.log("courses:", courses);
+
+                    let xAxis = [],
+                        data = [];
+
+                    courses.forEach(function (course){
+                        xAxis.push(course.title);
+                        data.push(course.collections);
+                    })
+
+                    this.chartColumn.setOption({
+                        title: { text: "收藏数最多的课程" },
+                        tooltip: {},
+                        xAxis: {
+                            data: xAxis,
+                            name: "标题"
+                        },
+                        yAxis: {
+                            name: "收藏数",
+                            minInterval: 1
+                        },
+                        series: [{
+                            name: '收藏数',
+                            type: 'bar',
+                            data: data
+                        }]
+                    });
+
+                    
+                })
+                .catch(function (err){
+                    console.log(err);
+                })
+
+
+                Course.getMostCommentCourse(5)
+                .then((res) => {
+                    let courses = res.data.response;
+
+                    let comments = [],
+                        titles = [];
+
+                    courses.forEach(function (course) {
+                        titles.unshift(course.title);
+                        comments.unshift(course.comments.length);
+                    })
+
+                    this.chartBar.setOption({
+                        title: {
+                            text: '评论数最多的课程',
+                            subtext: '选取5个'
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        legend: {
+                            data: ['comment']
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'value',
+                            boundaryGap: [0, 0.01],
+                            name: "评论数",
+                            minInterval: 1
+                        },
+                        yAxis: {
+                            type: 'category',
+                            data: titles,
+                            name: "标题"
+                        },
+                        series: [
+                            {
+                                name: 'comment',
+                                type: 'bar',
+                                data: comments
+                            },
+                        ]
+                    });
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+
+
+/*
             this.chartColumn.setOption({
                 title: { text: 'Column Chart' },
                 tooltip: {},
@@ -50,10 +146,13 @@
                 series: [{
                     name: '销量',
                     type: 'bar',
-                    data: [5, 20, 36, 10, 10, 20]
+                    data: [5, 16, 36, 10, 10, 20]
                 }]
             });
 
+*/
+
+/*
             this.chartBar.setOption({
                 title: {
                     text: 'Bar Chart',
@@ -95,8 +194,9 @@
                     }
                 ]
             });
+*/
 
-            this.chartLine.setOption({
+/*            this.chartLine.setOption({
                 title: {
                     text: 'Line Chart'
                 },
@@ -179,7 +279,8 @@
                         }
                     }
                 ]
-            });
+            });*/
+
         }
 
     }
