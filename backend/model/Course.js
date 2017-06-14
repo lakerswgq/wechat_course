@@ -168,8 +168,9 @@ module.exports = {
 		});
 	},
 
-	getHotCourse: function (){
-		let number = 4;
+	getHotCourse: function (number = 4){
+		number = Number(number);
+
 		return CourseModel.find()
 		.select({
 			title: 1,
@@ -202,6 +203,20 @@ module.exports = {
 		.limit(number)
 		.exec();
 	},
+
+	getMostCommentCourse: function (number = 5){
+		number = Number(number);
+
+		return CourseModel.find()
+		.select({
+			title: 1,
+			detail: 1,
+			cover: 1,
+			collections: 1,
+			comments: 1,
+		})
+		.exec();
+	}
 	// modifyCollections: function (courseId, number) {
 	// 	return CourseModel.update({ _id: courseId }, {
 
