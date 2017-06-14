@@ -164,8 +164,27 @@ router.get("/new", function (req, res){
 })
 
 router.get("/hot", function (req, res){
-	CourseModel.getHotCourse()
+	let num = req.query.num || 4;
+
+	CourseModel.getHotCourse(num)
 		.then(courses => {
+			_handle.handleSuccess(res, courses)
+		})
+		.catch(error => {
+			_handle.handleError(res, error)
+		})
+})
+
+
+router.get("/most_comment", function (req, res){
+	let num = req.query.num || 5;
+
+	CourseModel.getMostCommentCourse(num)
+		.then(courses => {
+			courses = courses.sort(function (a, b){
+				return b.comments.length - a.comments.length;
+			}).slice(0, 0+num);
+
 			_handle.handleSuccess(res, courses)
 		})
 		.catch(error => {
