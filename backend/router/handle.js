@@ -8,6 +8,7 @@ module.exports = {
     },
 
     handleError: function (res, error){
+        console.log("error:", error);
         res.json({
             code: 0,
             message: "error",
