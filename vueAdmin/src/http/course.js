@@ -87,5 +87,21 @@ export default {
             newName: newName,
             newUrl: newUrl,
         });
+    },
+
+    getHotCourse: function (number = 5){
+        return axios.get("/api/course/hot", {
+            params: {
+                num: number
+            }
+        });
+    },
+
+    getMostCommentCourse: function (number = 5){
+        return axios.get("/api/course/most_comment", {
+            params: {
+                num: number
+            }
+        });
     }
 }
