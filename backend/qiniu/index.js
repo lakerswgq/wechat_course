@@ -1,9 +1,9 @@
 var crypto = require('crypto');
 var qiniu = require("qiniu");
 
-qiniu.conf.ACCESS_KEY = "-FwuXvu0NnGzsGowH3y3s6kiXYucbMtkbwn2i_w9";
+qiniu.conf.ACCESS_KEY = "your acess_key";
 
-qiniu.conf.SECRET_KEY = "LAGQlV2jKc27YunCMDCkZCNp3_W4-i_WO4zRr1ch";
+qiniu.conf.SECRET_KEY = "your secret_key";
 
 function createToken (key) {
 	key = key || "";
